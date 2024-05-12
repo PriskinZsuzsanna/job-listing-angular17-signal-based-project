@@ -1,0 +1,36 @@
+@import '../../../styles/variables';
+
+.card {
+  background: white;
+  padding: 2rem 1rem 1.3rem;
+  margin-bottom: 2.2rem;
+  border-radius: .4rem;
+  box-shadow: .3px 10px 10px $desaturated-dark-cyan-opace;
+
+  .row {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: .8rem;
+  }
+
+  .company {
+    color: $desaturated-dark-cyan;
+    font-weight: bold;
+  }
+
+  .position {
+    font-weight: bold;
+  }
+
+  .third-row {
+    color: $dark-grayish-cyan;
+
+    .separator {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: $dark-grayish-cyan;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, InputSignal, input } from '@angular/core';
 
 @Component({
   selector: 'app-card-tile',
@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './card-tile.component.scss'
 })
 export class CardTileComponent {
-
+  label = input<string>();
 }
