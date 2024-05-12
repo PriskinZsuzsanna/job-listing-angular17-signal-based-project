@@ -5,8 +5,9 @@ header {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-
-  @media screen and (min-width: 900px){
+}
+@media screen and (min-width: 900px) {
+  header {
     background-image: url(../../src/assets/static-job-listings-master/images/bg-header-desktop.svg);
   }
-}
+}/*# sourceMappingURL=app.component.css.map */

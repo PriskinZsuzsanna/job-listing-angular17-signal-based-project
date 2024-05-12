@@ -1,0 +1,10 @@
+<main>
+  <div class="container">
+    <app-filter-container></app-filter-container>
+    <div class="card-container" [style.paddingTop]="isFilterContainer() ? '3rem': '6rem'">
+      @for (card of cards; track card) {
+        <app-card></app-card>
+      }
+    </div>
+  </div>
+</main>

@@ -1,0 +1,12 @@
+main {
+  width: 100%;
+  min-height: calc(100vh - 10rem);
+  background: hsl(180, 52%, 96%);
+}
+main .container {
+  width: min(94vw, 1400px);
+  background: rgba(0, 0, 0, 0.2156862745);
+  margin-inline: auto;
+  position: relative;
+  top: -3rem;
+}/*# sourceMappingURL=main.component.css.map */

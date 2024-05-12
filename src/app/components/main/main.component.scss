@@ -1,0 +1,15 @@
+@import '../../../styles/variables';
+
+main {
+  width: 100%;
+  min-height: calc(100vh - 10rem);
+  background: $light-grayish-cyan-background;
+
+  .container {
+    width: min(94vw, 1400px);
+    background: #00000037; //remove
+    margin-inline: auto;
+    position: relative;
+    top: -3rem;
+  }
+}
