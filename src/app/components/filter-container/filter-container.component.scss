@@ -1,0 +1,27 @@
+@import '../../../styles/variables';
+
+.filter-container {
+  padding: 1.2rem;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-radius: .3rem;
+}
+
+.filter-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.clear {
+  padding: .5rem;
+  font-weight: bold;
+  color: $desaturated-dark-cyan;
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

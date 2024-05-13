@@ -1,4 +1,9 @@
-span {
-  padding: .4rem;
+div {
+  padding: .6rem;
   border-radius: 2rem;
+  text-transform: uppercase;
+  color: white;
+  display: grid;
+  font-size: 14px;
+  place-items: center;
 }

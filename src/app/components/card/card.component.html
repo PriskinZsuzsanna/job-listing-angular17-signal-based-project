@@ -1,4 +1,5 @@
 <div class="card">
+  <div class="border" [class.show]="card().featured"></div>
   <div class="card-body">
     <div class="logo"></div>
     <div class="card-body-text">
@@ -6,13 +7,13 @@
         <span class="company">{{ card().company }}</span>
         @if (card().new) {
           <app-label
-            [label]="'new'"
-            [background]="'$desaturated-dark-cyan'"></app-label>
+            [label]="'new!'"
+            [background]="'hsl(180, 29%, 50%)'"></app-label>
         }
         @if (card().featured) {
           <app-label
             [label]="'featured'"
-            [background]="'$very-dark-grayish-cyan'"></app-label>
+            [background]="'hsl(180, 14%, 20%)'"></app-label>
         }
       </div>
       <div class="second-row row">
@@ -28,10 +29,10 @@
     </div>
     <hr>
     <div class="card-filters">
-      <app-card-tile [label]="card().role"></app-card-tile>
-      <app-card-tile [label]="card().level"></app-card-tile>
+      <app-card-tile [label]="card().role" (select)="onSelect($event)"></app-card-tile>
+      <app-card-tile [label]="card().level" (select)="onSelect($event)"></app-card-tile>
       @for (language of card().languages; track language) {
-        <app-card-tile [label]="language"></app-card-tile>
+        <app-card-tile [label]="language" (select)="onSelect($event)"></app-card-tile>
       }
     </div>
   </div>

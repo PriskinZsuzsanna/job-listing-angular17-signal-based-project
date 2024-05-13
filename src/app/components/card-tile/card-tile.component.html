@@ -1,1 +1,9 @@
-<button>{{ label() }}</button>
+
+<div class="tile-wrapper">
+  <button (click)="selectTile()">
+    {{ label() }} 
+  </button>
+  @if (closable()) {
+    <span>X</span>
+  }
+</div>

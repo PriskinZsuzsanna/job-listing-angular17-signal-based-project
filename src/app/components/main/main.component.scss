@@ -4,11 +4,20 @@ main {
   width: 100%;
   min-height: calc(100vh - 10rem);
   background: $light-grayish-cyan-background;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   .container {
     width: min(94vw, 1400px);
     margin-inline: auto;
     position: relative;
     top: -3rem;
+    left: 0;
+
+    .card-container {
+      width: 100%;
+    }
   }
 }

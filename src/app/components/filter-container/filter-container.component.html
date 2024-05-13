@@ -1,0 +1,8 @@
+<div class="filter-container">
+  <div class="filter-items">
+    @for (item of items(); track item) {
+      <app-card-tile [label]="item" [closable]="true"></app-card-tile>
+    }
+  </div>
+  <div class="clear" (click)="clear()">Clear</div>
+</div>
