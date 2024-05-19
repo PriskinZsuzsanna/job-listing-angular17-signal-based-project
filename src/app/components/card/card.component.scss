@@ -1,5 +1,11 @@
 @import '../../../styles/variables';
 
+@mixin media($breakpoint) {
+   @if $breakpoint == medium {
+    @media (min-width: 992px) { @content; }
+  } 
+}
+
 .card {
   background: white;
   padding: 2rem 1rem 1.3rem;
@@ -7,7 +13,46 @@
   border-radius: .4rem;
   box-shadow: .3px 10px 10px $desaturated-dark-cyan-opace;
   position: relative;
-  overflow: hidden;
+
+  @include media(medium) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .card-body {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .logo {
+      position: absolute;
+      top: 0;
+      translate: 0 -50%;
+
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background: $desaturated-dark-cyan;
+      overflow: hidden;
+      
+      @include media(medium) {
+        width: 6rem;
+        height: 6rem;
+        position: relative;
+      }
+
+      img {
+        max-width: 100%;
+      }
+    }
+  
+    hr {
+      @include media(medium) {
+        display: none;
+      }
+    }
+  }
 
   .border {
     display: none;
@@ -17,6 +62,7 @@
     left: 0;
     width: .3rem;
     background: $desaturated-dark-cyan;
+    border-radius: .4rem 0 0 .4rem;
   }
 
   .border.show {
@@ -28,6 +74,12 @@
     align-items: center;
     gap: .5rem;
     margin-bottom: .8rem;
+
+    &:last-of-type {
+      @include media(medium) {
+        margin-bottom: 0;
+      }
+    }
   }
 
   .company {
@@ -37,6 +89,12 @@
 
   .position {
     font-weight: bold;
+    transition: color .2s;
+    cursor: pointer;
+
+    &:hover {
+      color: $desaturated-dark-cyan;
+    }
   }
 
   .third-row {
@@ -51,9 +109,14 @@
   }
 
   .card-filters {
+    width: 100%;
     padding-block: 1rem;
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+
+    @include media(medium) {
+      justify-content: flex-end;
+    }
   }
 }

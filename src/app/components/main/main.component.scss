@@ -7,7 +7,7 @@ main {
   padding: 1rem;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 
   .container {
     width: min(94vw, 1400px);

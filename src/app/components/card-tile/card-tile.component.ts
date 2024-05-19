@@ -12,9 +12,14 @@ export class CardTileComponent {
   label = input.required<string>();
   type = input.required<Type>();
   select = output<Response>();
+  closeFilter = output<Response>();
   closable = input<boolean>();
 
   selectTile() {
     this.select.emit({label: this.label(), type: this.type()});
+  }
+  
+  close() {
+    this.closeFilter.emit({label: this.label(), type: this.type()});
   }
 }

@@ -13,6 +13,12 @@ button {
   font-weight: bold;
   background: $light-grayish-cyan-filter-tablets;
   cursor: pointer;
+  transition: background .2s, color .2s;
+  
+  &:hover {
+    background: $desaturated-dark-cyan;
+    color: white;
+  }
 }
 
 span {
@@ -21,4 +27,10 @@ span {
   font-weight: bold;
   padding: .5rem;
   font-size: 15px;
+  cursor: pointer;
+  transition: background .2s;
+
+  &:hover {
+    background: $very-dark-grayish-cyan;
+  }
 }

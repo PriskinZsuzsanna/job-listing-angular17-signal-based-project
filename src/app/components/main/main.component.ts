@@ -17,11 +17,11 @@ export class MainComponent implements OnInit {
   cardService = inject(CardService);
 
   cards = signal<Array<Card>>([]);
-  filterArray = signal<Array<string>>([]);
+  filterArray = signal<Array<Response>>([]);
   filterRole = signal<string | null>(null);
   filterLevel = signal<string | null>(null);
   filterLanguages = signal<Array<string>>([]);
-  isFilterContainer = computed(() => this.filterRole() || this.filterLevel() || this.filterLanguages().length > 0);
+  isFilterContainer = computed(() => this.filterArray.length);
 
   selectedCards = computed(() => {
     const roleFilter = this.filterRole();
@@ -31,7 +31,7 @@ export class MainComponent implements OnInit {
     return this.cards().filter(card => {
       const matchesRole = roleFilter ? card.role === roleFilter : true;
       const matchesLevel = levelFilter ? card.level === levelFilter : true;
-      const matchesLanguages = languageFilters.length > 0 ? languageFilters.every(language => (card.languages || []).includes(language)) : true;
+      const matchesLanguages = languageFilters.length > 0 ? languageFilters.some(language => card.languages.includes(language)) : true;
 
       return matchesRole && matchesLevel && matchesLanguages;
     });
@@ -45,8 +45,7 @@ export class MainComponent implements OnInit {
   }
 
   onSelect(response: Response) {
-    this.filterArray.update((array) => [...array, response.label]);
-    console.log(this.filterArray());
+    this.filterArray.update((array) => [...array, response]);
     if (response.type === 'Role') {
       this.onSelectRole(response.label);
       return;
@@ -69,8 +68,23 @@ export class MainComponent implements OnInit {
     this.filterLevel.set(level);
   }
 
-  onSelectLanguage(label: string) {
-    this.filterLanguages.update(labels => [...labels, label]);
+  onSelectLanguage(language: string) {
+    this.filterLanguages.update(languages => [...languages, language]);
+  }
+
+  onClose(response: Response) {
+    this.filterArray.set(this.filterArray().filter((item: Response) => item.label !== response.label));
+    if(response.type === 'Role') {
+      this.filterRole.set(null);
+      return;
+    }
+    if(response.type === 'Level') {
+      this.filterLevel.set(null);
+      return;
+    }
+    if(response.type === 'Language') {
+      this.filterLanguages.update(languages => languages.filter(language => language !== response.label));
+    }
   }
 
   onClearFilters() {

@@ -4,6 +4,6 @@
     {{ label() }} 
   </button>
   @if (closable()) {
-    <span>X</span>
+    <span (click)="close()">X</span>
   }
 </div>

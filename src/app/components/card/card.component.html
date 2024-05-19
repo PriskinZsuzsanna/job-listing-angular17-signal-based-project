@@ -1,19 +1,17 @@
 <div class="card">
   <div class="border" [class.show]="card().featured"></div>
   <div class="card-body">
-    <div class="logo"></div>
+    <div class="logo">
+      <img src="" alt="">
+    </div>
     <div class="card-body-text">
       <div class="first-row row">
         <span class="company">{{ card().company }}</span>
         @if (card().new) {
-          <app-label
-            [label]="'new!'"
-            [background]="'hsl(180, 29%, 50%)'"></app-label>
+        <app-label [label]="'new!'" [background]="'hsl(180, 29%, 50%)'"></app-label>
         }
         @if (card().featured) {
-          <app-label
-            [label]="'featured'"
-            [background]="'hsl(180, 14%, 20%)'"></app-label>
+        <app-label [label]="'featured'" [background]="'hsl(180, 14%, 20%)'"></app-label>
         }
       </div>
       <div class="second-row row">
@@ -28,12 +26,12 @@
       </div>
     </div>
     <hr>
-    <div class="card-filters">
-      <app-card-tile [label]="card().role" [type]="Type.Role" (select)="onSelect($event)"></app-card-tile>
-      <app-card-tile [label]="card().level" [type]="Type.Level" (select)="onSelect($event)"></app-card-tile>
-      @for (language of card().languages; track language) {
-        <app-card-tile [label]="language" [type]="Type.Language" (select)="onSelect($event)"></app-card-tile>
-      }
-    </div>
+  </div>
+  <div class="card-filters">
+    <app-card-tile [label]="card().role" [type]="Type.Role" (select)="onSelect($event)"></app-card-tile>
+    <app-card-tile [label]="card().level" [type]="Type.Level" (select)="onSelect($event)"></app-card-tile>
+    @for (language of card().languages; track language) {
+    <app-card-tile [label]="language" [type]="Type.Language" (select)="onSelect($event)"></app-card-tile>
+    }
   </div>
 </div>
