@@ -4,6 +4,7 @@ import { CardComponent } from '../card/card.component';
 import { Card } from '../card/card.types';
 import { CardService } from '../../services/card.service';
 import { tap } from 'rxjs';
+import { Response } from '../card-tile/card-tyle.types';
 
 @Component({
   selector: 'app-main',
@@ -12,35 +13,70 @@ import { tap } from 'rxjs';
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
-export class MainComponent implements OnInit{
+export class MainComponent implements OnInit {
   cardService = inject(CardService);
 
-  cards: Array<Card> = new Array<Card>();
+  cards = signal<Array<Card>>([]);
   filterArray = signal<Array<string>>([]);
-  isFilterContainer = computed(() => this.filterArray().length > 0);
+  filterRole = signal<string | null>(null);
+  filterLevel = signal<string | null>(null);
+  filterLanguages = signal<Array<string>>([]);
+  isFilterContainer = computed(() => this.filterRole() || this.filterLevel() || this.filterLanguages().length > 0);
+
   selectedCards = computed(() => {
-    //try using it in html!!!!!!!!!!!
-    if(this.filterArray().length) {
-      return this.cards.filter((card) => this.filterArray().includes(card.role ||card.position))
-    }
-    return this.cards;
-  })
+    const roleFilter = this.filterRole();
+    const levelFilter = this.filterLevel();
+    const languageFilters = this.filterLanguages();
+
+    return this.cards().filter(card => {
+      const matchesRole = roleFilter ? card.role === roleFilter : true;
+      const matchesLevel = levelFilter ? card.level === levelFilter : true;
+      const matchesLanguages = languageFilters.length > 0 ? languageFilters.every(language => (card.languages || []).includes(language)) : true;
+
+      return matchesRole && matchesLevel && matchesLanguages;
+    });
+  });
 
   ngOnInit(): void {
     this.cardService.getCards()
-    .pipe(
-      tap((data: Card[]) => console.log(data))
-    )
-    .subscribe((data: Card[]) => {
-      this.cards = data;
-    })
+      .subscribe((data: Card[]) => {
+        this.cards.set(data);
+      });
   }
 
-  onSelect(label: string) {
-    this.filterArray.update((array) => [...array, label]);
+  onSelect(response: Response) {
+    this.filterArray.update((array) => [...array, response.label]);
+    console.log(this.filterArray());
+    if (response.type === 'Role') {
+      this.onSelectRole(response.label);
+      return;
+    }
+    if (response.type === 'Level') {
+      this.onSelectLevel(response.label);
+      return;
+    }
+    if (response.type === 'Language') {
+      this.onSelectLanguage(response.label);
+      return;
+    }
   }
 
-  onClearItems() {
+  onSelectRole(role: string) {
+    this.filterRole.set(role);
+  }
+
+  onSelectLevel(level: string) {
+    this.filterLevel.set(level);
+  }
+
+  onSelectLanguage(label: string) {
+    this.filterLanguages.update(labels => [...labels, label]);
+  }
+
+  onClearFilters() {
+    this.filterRole.set(null);
+    this.filterLevel.set(null);
+    this.filterLanguages.set([]);
     this.filterArray.set([]);
   }
 }

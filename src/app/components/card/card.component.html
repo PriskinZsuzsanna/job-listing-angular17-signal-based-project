@@ -29,10 +29,10 @@
     </div>
     <hr>
     <div class="card-filters">
-      <app-card-tile [label]="card().role" (select)="onSelect($event)"></app-card-tile>
-      <app-card-tile [label]="card().level" (select)="onSelect($event)"></app-card-tile>
+      <app-card-tile [label]="card().role" [type]="Type.Role" (select)="onSelect($event)"></app-card-tile>
+      <app-card-tile [label]="card().level" [type]="Type.Level" (select)="onSelect($event)"></app-card-tile>
       @for (language of card().languages; track language) {
-        <app-card-tile [label]="language" (select)="onSelect($event)"></app-card-tile>
+        <app-card-tile [label]="language" [type]="Type.Language" (select)="onSelect($event)"></app-card-tile>
       }
     </div>
   </div>

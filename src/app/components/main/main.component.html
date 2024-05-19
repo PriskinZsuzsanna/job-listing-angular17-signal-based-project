@@ -3,12 +3,13 @@
     @if (filterArray().length) {
       <app-filter-container
         [items]="filterArray()"
-        (clearItems)="onClearItems()">
+        (clearItems)="onClearFilters()">
       </app-filter-container>
     }
     <div class="card-container" [style.paddingTop]="isFilterContainer() ? '3rem': '6rem'">
-      @for (card of cards; track card) {
-        <app-card [card]="card" (select)="onSelect($event)"></app-card>
+      @for (card of selectedCards(); track card) {
+        <app-card [card]="card"
+        (select)="onSelect($event)"></app-card>
       }
     </div>
   </div>

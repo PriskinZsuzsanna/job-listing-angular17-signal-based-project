@@ -1,4 +1,5 @@
 import { Component, InputSignal, input, output } from '@angular/core';
+import { Type, Response } from './card-tyle.types';
 
 @Component({
   selector: 'app-card-tile',
@@ -9,10 +10,11 @@ import { Component, InputSignal, input, output } from '@angular/core';
 })
 export class CardTileComponent {
   label = input.required<string>();
-  select = output<string>();
+  type = input.required<Type>();
+  select = output<Response>();
   closable = input<boolean>();
 
   selectTile() {
-    this.select.emit(this.label());
+    this.select.emit({label: this.label(), type: this.type()});
   }
 }
