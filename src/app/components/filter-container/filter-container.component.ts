@@ -1,7 +1,6 @@
 import { Component, input, output } from '@angular/core';
-import { LabelComponent } from '../label/label.component';
 import { CardTileComponent } from '../card-tile/card-tile.component';
-import { Type, Response } from '../card-tile/card-tyle.types';
+import { Type, TyleData } from '../card-tile/card-tyle.types';
 
 @Component({
   selector: 'app-filter-container',
@@ -12,15 +11,15 @@ import { Type, Response } from '../card-tile/card-tyle.types';
 })
 export class FilterContainerComponent {
   type: Type = Type.Filtered;
-  items = input<Array<Response>>([]);
+  items = input<Array<TyleData>>([]);
   clearItems = output<void>();
-  closeClick = output<Response>();
+  closeClick = output<TyleData>();
 
   clear() {
     this.clearItems.emit();
   }
 
-  onClose(response: Response) {
-    this.closeClick.emit(response);
+  onClose(TyleData: TyleData) {
+    this.closeClick.emit(TyleData);
   }
 }

@@ -29,17 +29,12 @@
       position: absolute;
       top: 0;
       translate: 0 -50%;
-
       width: 3rem;
-      height: 3rem;
-      border-radius: 50%;
-      background: $desaturated-dark-cyan;
-      overflow: hidden;
       
       @include media(medium) {
+        position: static;
+        translate: 0 0;
         width: 6rem;
-        height: 6rem;
-        position: relative;
       }
 
       img {

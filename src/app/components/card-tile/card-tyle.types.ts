@@ -5,7 +5,7 @@ export enum Type {
   Filtered = 'Filtered'
 };
 
-export interface Response {
+export interface TyleData {
   label: string;
   type: Type;
 }

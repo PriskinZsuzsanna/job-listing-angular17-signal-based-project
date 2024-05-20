@@ -1,5 +1,5 @@
-import { Component, InputSignal, input, output } from '@angular/core';
-import { Type, Response } from './card-tyle.types';
+import { Component, input, output } from '@angular/core';
+import { Type, TyleData } from './card-tyle.types';
 
 @Component({
   selector: 'app-card-tile',
@@ -11,8 +11,8 @@ import { Type, Response } from './card-tyle.types';
 export class CardTileComponent {
   label = input.required<string>();
   type = input.required<Type>();
-  select = output<Response>();
-  closeFilter = output<Response>();
+  select = output<TyleData>();
+  closeFilter = output<TyleData>();
   closable = input<boolean>();
 
   selectTile() {

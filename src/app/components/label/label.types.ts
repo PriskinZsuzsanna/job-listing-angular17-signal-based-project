@@ -1,4 +1,4 @@
 export enum Label {
-  New = 'NEW',
-  Featured = 'FEATURED'
+  New = 'New',
+  Featured = 'Featured'
 }

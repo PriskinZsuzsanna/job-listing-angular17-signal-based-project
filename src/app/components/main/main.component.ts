@@ -1,10 +1,9 @@
-import { Component, OnInit, WritableSignal, computed, effect, inject, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { FilterContainerComponent } from '../filter-container/filter-container.component';
 import { CardComponent } from '../card/card.component';
 import { Card } from '../card/card.types';
 import { CardService } from '../../services/card.service';
-import { tap } from 'rxjs';
-import { Response } from '../card-tile/card-tyle.types';
+import { TyleData } from '../card-tile/card-tyle.types';
 
 @Component({
   selector: 'app-main',
@@ -17,21 +16,18 @@ export class MainComponent implements OnInit {
   cardService = inject(CardService);
 
   cards = signal<Array<Card>>([]);
-  filterArray = signal<Array<Response>>([]);
+  filterArray = signal<Array<TyleData>>([]);
   filterRole = signal<string | null>(null);
   filterLevel = signal<string | null>(null);
   filterLanguages = signal<Array<string>>([]);
   isFilterContainer = computed(() => this.filterArray.length);
 
   selectedCards = computed(() => {
-    const roleFilter = this.filterRole();
-    const levelFilter = this.filterLevel();
-    const languageFilters = this.filterLanguages();
 
     return this.cards().filter(card => {
-      const matchesRole = roleFilter ? card.role === roleFilter : true;
-      const matchesLevel = levelFilter ? card.level === levelFilter : true;
-      const matchesLanguages = languageFilters.length > 0 ? languageFilters.some(language => card.languages.includes(language)) : true;
+      const matchesRole = this.filterRole() ? card.role === this.filterRole() : true;
+      const matchesLevel = this.filterLevel() ? card.level === this.filterLevel() : true;
+      const matchesLanguages = this.filterLanguages().length > 0 ? this.filterLanguages().some(language => card.languages.includes(language)) : true;
 
       return matchesRole && matchesLevel && matchesLanguages;
     });
@@ -44,46 +40,35 @@ export class MainComponent implements OnInit {
       });
   }
 
-  onSelect(response: Response) {
-    this.filterArray.update((array) => [...array, response]);
-    if (response.type === 'Role') {
-      this.onSelectRole(response.label);
+  onSelect(TyleData: TyleData) {
+    this.filterArray.update((array) => [...array, TyleData]);
+    if (TyleData.type === 'Role') {
+      this.filterRole.set(TyleData.label);
       return;
     }
-    if (response.type === 'Level') {
-      this.onSelectLevel(response.label);
+    if (TyleData.type === 'Level') {
+      this.filterLevel.set(TyleData.label);
       return;
     }
-    if (response.type === 'Language') {
-      this.onSelectLanguage(response.label);
+    if (TyleData.type === 'Language') {
+      this.filterLanguages.update(languages => [...languages, TyleData.label]);
       return;
     }
   }
 
-  onSelectRole(role: string) {
-    this.filterRole.set(role);
-  }
-
-  onSelectLevel(level: string) {
-    this.filterLevel.set(level);
-  }
-
-  onSelectLanguage(language: string) {
-    this.filterLanguages.update(languages => [...languages, language]);
-  }
-
-  onClose(response: Response) {
-    this.filterArray.set(this.filterArray().filter((item: Response) => item.label !== response.label));
-    if(response.type === 'Role') {
+  onClose(TyleData: TyleData) {
+    this.filterArray.set(this.filterArray().filter((item: TyleData) => item.label !== TyleData.label));
+    if (TyleData.type === 'Role') {
       this.filterRole.set(null);
       return;
     }
-    if(response.type === 'Level') {
+    if (TyleData.type === 'Level') {
       this.filterLevel.set(null);
       return;
     }
-    if(response.type === 'Language') {
-      this.filterLanguages.update(languages => languages.filter(language => language !== response.label));
+    if (TyleData.type === 'Language') {
+      this.filterLanguages.update(languages => languages.filter(language => language !== TyleData.label));
+      return;
     }
   }
 

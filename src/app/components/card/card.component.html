@@ -2,16 +2,16 @@
   <div class="border" [class.show]="card().featured"></div>
   <div class="card-body">
     <div class="logo">
-      <img src="" alt="">
+      <img [src]="'assets/images/' + imageSource() + '.svg'" alt="">
     </div>
     <div class="card-body-text">
       <div class="first-row row">
         <span class="company">{{ card().company }}</span>
         @if (card().new) {
-        <app-label [label]="'new!'" [background]="'hsl(180, 29%, 50%)'"></app-label>
+        <app-label [label]="Label.New" [background]="'hsl(180, 29%, 50%)'"></app-label>
         }
         @if (card().featured) {
-        <app-label [label]="'featured'" [background]="'hsl(180, 14%, 20%)'"></app-label>
+        <app-label [label]="Label.Featured" [background]="'hsl(180, 14%, 20%)'"></app-label>
         }
       </div>
       <div class="second-row row">

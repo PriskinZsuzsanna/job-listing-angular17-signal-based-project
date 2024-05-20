@@ -9,6 +9,6 @@ import { Label } from './label.types';
   styleUrl: './label.component.scss'
 })
 export class LabelComponent {
-  label = input.required<string>();
+  label = input.required<Label>();
   background = input.required<string>();
 }

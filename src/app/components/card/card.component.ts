@@ -1,8 +1,9 @@
-import { Component, InputSignal, input, output } from '@angular/core';
+import { Component, InputSignal, computed, input, output } from '@angular/core';
 import { LabelComponent } from '../label/label.component';
 import { Card } from './card.types';
 import { CardTileComponent } from '../card-tile/card-tile.component';
-import { Type, Response } from '../card-tile/card-tyle.types';
+import { Type, TyleData } from '../card-tile/card-tyle.types';
+import { Label } from '../label/label.types';
 
 @Component({
   selector: 'app-card',
@@ -13,10 +14,14 @@ import { Type, Response } from '../card-tile/card-tyle.types';
 })
 export class CardComponent {
   Type = Type; 
+  Label = Label;
   card: InputSignal<Card> = input.required<Card>();
-  select = output<Response>();
+  select = output<TyleData>();
+  imageSource = computed(() => {
+    return (this.card().company).toLowerCase().replaceAll(' ', '-').replace('.', '');
+  });
 
-  onSelect(response: Response) {
-    this.select.emit(response);
+  onSelect(TyleData: TyleData) {
+    this.select.emit(TyleData);
   }
 }
